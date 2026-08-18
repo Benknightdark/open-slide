@@ -7,10 +7,19 @@
         "type": "emoji",
         "value": "⚡"
       }
+    },
+    {
+      "id": "f-6f4af787",
+      "name": "Okout",
+      "icon": {
+        "type": "color",
+        "value": "#f76b15"
+      }
     }
   ],
   "assignments": {
     "open-slide-launch": "f-3ed31a46",
-    "material-design-2014": "f-3ed31a46"
+    "material-design-2014": "f-3ed31a46",
+    "neo-skills-overview": "f-6f4af787"
   }
 }
