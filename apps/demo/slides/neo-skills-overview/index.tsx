@@ -1264,7 +1264,7 @@ const Closing: Page = () => (
 );
 
 export const meta: SlideMeta = {
-  title: 'Neo Skills · Survival Manual',
+  title: 'Neo Skills',
   theme: 'cyber-wasteland',
   createdAt: '2026-08-18T00:00:00+08:00',
 };
