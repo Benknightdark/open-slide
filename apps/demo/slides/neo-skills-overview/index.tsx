@@ -569,7 +569,8 @@ const Cover: Page = () => (
           lineHeight: 1.55,
         }}
       >
-        給 AI Agent 的專家技能模組。把流程封裝、把知識分層、把每一次工作留在可重用的基礎設施上。
+        給 AI Agent 使用的專家技能模組。Neo Skills 將流程封裝成技能，分層管理知識，讓 Agent
+        在不同工作中重複使用同一套方法。
       </p>
     </div>
     <div
@@ -617,7 +618,7 @@ const Problem: Page = () => (
       <div className="ns-rise" style={{ animationDelay: '80ms' }}>
         <Tag color={p.magenta}>Why this exists</Tag>
       </div>
-      <SectionTitle>提示詞會失效，流程不能。</SectionTitle>
+      <SectionTitle>提示詞會變，流程要能重複使用。</SectionTitle>
       <p
         className="ns-rise"
         style={{
@@ -629,8 +630,8 @@ const Problem: Page = () => (
           lineHeight: 1.5,
         }}
       >
-        Neo Skills 把專業工作流程包成可安裝的 `SKILL.md`，讓 Agent
-        在需要時讀取精準知識，而不是把所有規則塞進一段巨型提示詞。
+        Neo Skills 將專業流程封裝成可安裝的 `SKILL.md`。Agent
+        只在需要時讀取相關規則，避免把所有規則放進同一段提示詞。
       </p>
       <div
         className="ns-rise"
@@ -652,7 +653,7 @@ const Problem: Page = () => (
               gap: 12,
             }}
           >
-            {['規範散落在對話裡', '上下文不斷膨脹', '觸發條件依賴記憶', '流程難以重複驗證'].map(
+            {['規範散落在對話中', '上下文持續膨脹', '觸發條件靠記憶', '流程難以重複驗證'].map(
               (line, index) => (
                 <div
                   key={line}
@@ -740,9 +741,9 @@ const Principles: Page = () => (
         <Tag color={p.toxic}>Core architecture</Tag>
       </div>
       <SectionTitle>
-        不是一段巨型提示詞。
+        技能由五個
         <br />
-        是一座技能基地。
+        設計原則組成。
       </SectionTitle>
       <div
         className="ns-rise"
@@ -758,25 +759,25 @@ const Principles: Page = () => (
           {
             index: '01',
             title: '漸進式揭露',
-            body: '啟動時只讀取名稱與描述，需要時才展開完整知識。',
+            body: '啟動時先讀取名稱與描述；需要時再載入完整知識。',
             color: p.accent,
           },
           {
             index: '02',
             title: '觸發導向',
-            body: '每個描述都說明何時使用，讓載入更精準。',
+            body: '描述清楚說明何時使用，讓載入條件更明確。',
             color: p.magenta,
           },
           {
             index: '03',
             title: '外部知識庫',
-            body: '詳細規則放進 references，保留主技能檔的焦點。',
+            body: '詳細規則放在 references，主技能檔保持精簡。',
             color: p.toxic,
           },
           {
             index: '04',
             title: '可重用資源',
-            body: '透過 assets、templates 與 scripts，把流程變成工具。',
+            body: '用 assets、templates 與 scripts 重用既有流程。',
             color: p.amber,
           },
           {
@@ -837,12 +838,12 @@ const SkillMap: Page = () => (
       <div className="ns-rise" style={{ animationDelay: '80ms' }}>
         <Tag>Skill registry</Tag>
       </div>
-      <SectionTitle width={1100}>把專業拆成可部署的技能節點。</SectionTitle>
+      <SectionTitle width={1100}>把專業流程拆成可部署的技能。</SectionTitle>
       <p
         className="ns-rise"
         style={{ animationDelay: '250ms', margin: '20px 0 34px', color: p.muted, fontSize: 24 }}
       >
-        從 Agent 治理到語言、框架、DevOps 與文字流程，每個領域都能成為獨立的知識單元。
+        Neo Skills 將 Agent 治理、安全、語言、框架、DevOps 與文字流程分成不同技能。
       </p>
       <div
         className="ns-rise"
@@ -920,15 +921,15 @@ const LoadFlow: Page = () => (
         <Tag color={p.magenta}>Progressive disclosure</Tag>
       </div>
       <SectionTitle width={1120}>
-        只在需要時載入。
+        需要時才載入，
         <br />
-        不讓上下文失控。
+        讓上下文保持精簡。
       </SectionTitle>
       <p
         className="ns-rise"
         style={{ animationDelay: '250ms', margin: '20px 0 38px', color: p.muted, fontSize: 24 }}
       >
-        Agent 先看見最小的入口，再沿著工作需要逐層展開；知識越深，載入越精準。
+        Agent 先讀取名稱與描述，再依工作需要逐層載入完整規則與資源。
       </p>
       <div
         className="ns-rise"
@@ -937,27 +938,27 @@ const LoadFlow: Page = () => (
         <FlowStep
           index="01"
           title="辨識入口"
-          body="啟動時讀取 name 與 description，知道技能何時值得被喚醒。"
+          body="啟動時讀取 name 與 description，判斷何時需要這項技能。"
         />
         <Arrow color={p.magenta} />
         <FlowStep
           index="02"
           title="展開規則"
-          body="需要時載入完整的 SKILL.md，取得這項工作的操作語境。"
+          body="需要時載入完整的 SKILL.md，取得這項工作的規則。"
           color={p.magenta}
         />
         <Arrow color={p.magenta} />
         <FlowStep
           index="03"
-          title="接入資源"
-          body="沿著 references、assets、templates 與 scripts 取得深層能力。"
+          title="載入資源"
+          body="沿著 references、assets、templates 與 scripts 讀取相關資源。"
           color={p.toxic}
         />
         <Arrow color={p.magenta} />
         <FlowStep
           index="04"
-          title="交付結果"
-          body="用可重複的流程完成任務，讓知識成為下一次工作的起點。"
+          title="完成工作"
+          body="用可重複的流程完成任務，下一次工作可以直接沿用。"
           color={p.amber}
         />
       </div>
@@ -971,7 +972,7 @@ const Install: Page = () => (
       <div className="ns-rise" style={{ animationDelay: '80ms' }}>
         <Tag color={p.toxic}>Installation routes</Tag>
       </div>
-      <SectionTitle width={1080}>一條命令，接入整座技能網。</SectionTitle>
+      <SectionTitle width={1080}>一條命令，安裝整套技能。</SectionTitle>
       <div
         className="ns-rise"
         style={{
@@ -1093,13 +1094,13 @@ const Validation: Page = () => (
       <div className="ns-rise" style={{ animationDelay: '80ms' }}>
         <Tag color={p.amber}>Structural integrity</Tag>
       </div>
-      <SectionTitle width={1050}>能被安裝，也能被驗證。</SectionTitle>
+      <SectionTitle width={1050}>安裝前，先確認技能結構。</SectionTitle>
       <p
         className="ns-rise"
         style={{ animationDelay: '250ms', margin: '20px 0 38px', color: p.muted, fontSize: 24 }}
       >
-        技能不是散落的提示詞檔案；它有目錄、資源、腳本與
-        frontmatter，並且可以在進入工作流之前接受檢查。
+        技能由 `SKILL.md` 與可選的 references、assets、templates、scripts
+        組成；驗證腳本會在它進入工作流前檢查結構。
       </p>
       <div
         className="ns-rise"
@@ -1204,7 +1205,7 @@ const Closing: Page = () => (
         >
           把知識變成
           <br />
-          可重用的生存工具。
+          可重用的工具。
         </h2>
       </div>
       <p
@@ -1218,7 +1219,7 @@ const Closing: Page = () => (
           lineHeight: 1.5,
         }}
       >
-        安裝一套技能，讓下一次工作不必從零開始。
+        安裝技能，下一次工作直接沿用。
       </p>
       <div
         className="ns-rise"
