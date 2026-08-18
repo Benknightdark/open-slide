@@ -555,7 +555,7 @@ const Cover: Page = () => (
             letterSpacing: '-0.02em',
           }}
         >
-          <span style={{ width: 88, height: 1, background: p.magenta }} />讓 Agent 在廢墟裡保持秩序
+          <span style={{ width: 88, height: 1, background: p.magenta }} />可重複使用的 AI Agent 技能庫
         </div>
       </div>
       <p
