@@ -569,8 +569,7 @@ const Cover: Page = () => (
           lineHeight: 1.55,
         }}
       >
-        給 AI Agent 使用的專家技能模組。Neo Skills 將流程封裝成技能，分層管理知識，讓 Agent
-        在不同工作中重複使用同一套方法。
+        
       </p>
     </div>
     <div
