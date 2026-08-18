@@ -555,7 +555,8 @@ const Cover: Page = () => (
             letterSpacing: '-0.02em',
           }}
         >
-          <span style={{ width: 88, height: 1, background: p.magenta }} />可重複使用的 AI Agent 技能庫
+          <span style={{ width: 88, height: 1, background: p.magenta }} />
+          可重複使用的 AI Agent 技能庫
         </div>
       </div>
       <p
@@ -569,7 +570,7 @@ const Cover: Page = () => (
           lineHeight: 1.55,
         }}
       >
-        
+        遠離失控的AI Agnet，告別地獄副本
       </p>
     </div>
     <div
