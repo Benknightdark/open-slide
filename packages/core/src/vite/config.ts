@@ -11,6 +11,7 @@ import { designPlugin } from './design-plugin.ts';
 import { locTagsPlugin } from './loc-tags-plugin.ts';
 import { notesPlugin } from './notes-plugin.ts';
 import { loadUserConfig, type OpenSlideConfig, openSlidePlugin } from './open-slide-plugin.ts';
+import { serverInfoPlugin } from './server-info-plugin.ts';
 import { themesPlugin } from './themes-plugin.ts';
 
 function findPackageRoot(fromFile: string): string {
@@ -80,15 +81,26 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
       openSlidePlugin({ userCwd, config, coreVersion: CORE_VERSION }),
       themesPlugin({ userCwd, config }),
       designPlugin({ userCwd }),
-      apiPlugin({ userCwd, slidesDir, assetsDir, coreVersion: CORE_VERSION }),
+      apiPlugin({
+        userCwd,
+        slidesDir,
+        assetsDir,
+        coreVersion: CORE_VERSION,
+        agentEnabled: config.agent?.enabled ?? true,
+      }),
       notesPlugin({ userCwd, slidesDir }),
       currentPlugin({ userCwd, slidesDir }),
+      serverInfoPlugin({ userCwd }),
     ],
     resolve: {
       alias: {
         '@': APP_ROOT,
         '@assets': assetsAbs,
       },
+      // A workspace that still declares its own react (e.g. scaffolded before
+      // v2) would otherwise load two copies — core's and the workspace's —
+      // which crashes the production bundle with React error #525.
+      dedupe: ['react', 'react-dom'],
     },
     optimizeDeps: {
       entries: [path.join(APP_ROOT, 'main.tsx')],
@@ -113,16 +125,13 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
       ],
       // The app source ships inside node_modules/@open-slide/core/src/app, so
       // Vite's dep scanner traverses it as if it were a third-party dep and
-      // tries to bundle our virtual imports with esbuild. Mark them external.
-      esbuildOptions: {
+      // tries to bundle our virtual imports. Mark them external.
+      rolldownOptions: {
         plugins: [
           {
             name: 'open-slide:virtual-externals',
-            setup(build) {
-              build.onResolve({ filter: /^virtual:open-slide\// }, (args) => ({
-                path: args.path,
-                external: true,
-              }));
+            resolveId(id) {
+              return id.startsWith('virtual:open-slide/') ? { id, external: true } : null;
             },
           },
         ],

@@ -10,7 +10,9 @@ import {
   MonitorSpeaker,
   Palette,
   Play,
+  Presentation,
   RectangleHorizontal,
+  Sparkles,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { format, useLocale } from '@/lib/use-locale';
@@ -25,8 +27,10 @@ export type SlideCommandHandlers = {
   onCopyLink: () => void;
   onOverview: () => void;
   onToggleDesignPanel: () => void;
+  onToggleAgentPanel: () => void;
   onExportHtml: () => void;
   onExportPdf: () => void;
+  onExportPptx: () => void;
   onExportImagePptx: () => void;
   onGoToPage: (index: number) => void;
 };
@@ -103,6 +107,14 @@ export function SlideCommandMenu({
         shortcut: 'D',
         run: handlers.onToggleDesignPanel,
       });
+      deck.push({
+        id: 'agent-panel',
+        label: t.agent.openTitle,
+        icon: <Sparkles />,
+        keywords: ['agent', 'claude', 'codex', 'chat', 'ai'],
+        shortcut: 'A',
+        run: handlers.onToggleAgentPanel,
+      });
     }
     if (showSlideBrowser) {
       deck.push({
@@ -131,6 +143,14 @@ export function SlideCommandMenu({
             keywords: ['export', 'pdf', 'download', 'print'],
             disabled: exporting,
             run: handlers.onExportPdf,
+          },
+          {
+            id: 'export-pptx',
+            label: t.slide.exportAsPptx,
+            icon: <Presentation />,
+            keywords: ['export', 'pptx', 'powerpoint', 'download', 'editable'],
+            disabled: exporting,
+            run: handlers.onExportPptx,
           },
           {
             id: 'export-image-pptx',

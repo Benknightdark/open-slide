@@ -8,6 +8,7 @@ import {
   StepHost,
 } from '../lib/step-context';
 import {
+  holdOpacity,
   type MorphTransition,
   resolveTransition,
   type SlideTransition,
@@ -711,8 +712,14 @@ export function SlideTransitionLayer({
     const morphPhase = resolveMorphTransition(transition.morph, duration, easing);
     const morphRun = morphPhase ? runMorphTransition(wrapper, out, inc, morphPhase) : null;
 
+    // The wrapper paints --osd-bg under both layers, so an exit that fades
+    // out exposes it before the enter has covered it; pages whose own
+    // background differs from --osd-bg visibly dip through the wrapper colour.
+    // The outgoing page therefore stays opaque unless the deck opts in.
+    const exitPhase = transition.throughBackground ? transition.exit : holdOpacity(transition.exit);
+
     const anims: Animation[] = [];
-    const exitAnim = runPhase(out, transition.exit, duration, easing);
+    const exitAnim = runPhase(out, exitPhase, duration, easing);
     const enterAnim = runPhase(inc, transition.enter, duration, easing);
     if (exitAnim) anims.push(exitAnim);
     if (enterAnim) anims.push(enterAnim);
@@ -802,7 +809,7 @@ export function SlideTransitionLayer({
         </div>
       ) : null}
       {CurrentPage ? (
-        <div ref={incomingLayerRef} className="absolute inset-0">
+        <div ref={incomingLayerRef} data-osd-current-page={current} className="absolute inset-0">
           <SlidePageProvider index={current} total={total}>
             <StepHost
               isActivePage

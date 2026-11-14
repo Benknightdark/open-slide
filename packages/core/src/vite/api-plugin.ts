@@ -1,9 +1,11 @@
 import type { Plugin } from 'vite';
+import { registerAgentRoutes } from './routes/agent.ts';
 import { registerAssetRoutes } from './routes/assets.ts';
 import { registerCommentRoutes } from './routes/comments.ts';
 import { type ApiPluginOptions, makeContext } from './routes/context.ts';
 import { registerEditRoutes } from './routes/edit.ts';
 import { registerFolderRoutes } from './routes/folders.ts';
+import { registerGfontsRoutes } from './routes/gfonts.ts';
 import { registerRestartRoutes } from './routes/restart.ts';
 import { registerSlideRoutes } from './routes/slides.ts';
 import { registerSvglRoutes } from './routes/svgl.ts';
@@ -25,9 +27,11 @@ export function apiPlugin(opts: ApiPluginOptions): Plugin {
       registerSlideRoutes(server, ctx);
       registerAssetRoutes(server, ctx);
       registerSvglRoutes(server);
+      registerGfontsRoutes(server);
       registerFolderRoutes(server, ctx);
       registerUpdateRoutes(server, ctx);
       registerRestartRoutes(server);
+      registerAgentRoutes(server, ctx);
     },
   };
 }
